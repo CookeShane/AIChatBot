@@ -5,7 +5,7 @@ from faq_chatbot.forms import UserQuestionForm
 from faq_chatbot.nlp import OpenAI_API
 from faq_chatbot.models import FAQs
 
-class HomeView(FormView):
+class ChatBotView(FormView):
     """
     View to handle the home page with a form for user questions.
 
@@ -23,7 +23,7 @@ class HomeView(FormView):
             Returns:
                 HttpResponse: The rendered response with the context including the user's question and the most similar FAQ or a custom message.
     """
-    template_name = 'faq_chatbot/home.html'
+    template_name = 'faq_chatbot/chatbot.html'
     form_class = UserQuestionForm
     open_api = OpenAI_API()
     success_url = reverse_lazy('home')

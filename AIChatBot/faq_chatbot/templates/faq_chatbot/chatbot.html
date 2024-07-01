@@ -1,0 +1,26 @@
+{% extends "home.html" %}
+{% load custom_filters %}
+
+{% block chatbot_block %}
+
+    <div class="container">
+        <h1 class="">FAQ Chatbot</h1>
+        <form method="post" class="mt-3">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary">Ask</button>
+        </form>
+
+        {% if user_question %}
+            <div class="mt-4">
+                <h4>Your Question: {{ user_question }}</h4>
+                {% if most_similar %}
+                    <p>{{ most_similar.answer|linebreaks|convert_hyperlinks }}</p>
+                {% else %}
+                    <p>{{ custom_message|linebreaks|urlize }}</p>
+                {% endif %}
+            </div>
+        {% endif %}
+    </div>
+
+{% endblock chatbot_block %}

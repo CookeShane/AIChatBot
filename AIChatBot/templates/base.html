@@ -18,34 +18,32 @@
     </head>
 
     <body>
-        <div class="wrapper">
-            <!-- Navigation bar across top horizontal -->
-            <nav class="navbar bg-dark border-bottom border-body" data-bs-theme="dark" role='navigation' id='navbar'>
-                <div class='container-fluid'>
-                    <a class='navbar-brand' href="{% url "home" %}">
-                        <img src="{% static "Images/logo.png" %}" alt="Logo" width='70' height='50'>
-                    </a>
-                    <span class='nav-item h5 text-light'>Welcome to Shane Cooke's Website</span>
-                </div>
-            </nav>
-    
-            <!-- Content block used by extending this file -->
-            <div class="container content">
-                {% block main %}     {% endblock main %}
+        <!-- Navigation bar across top horizontal -->
+        <nav class="navbar bg-dark border-bottom border-body" data-bs-theme="dark" role='navigation' id='navbar'>
+            <div class='container-fluid'>
+                <a class='navbar-brand' href="{% url "home" %}">
+                    <img src="{% static "Images/logo.png" %}" alt="Logo" width='70' height='50'>
+                </a>
+                <span class='nav-item h5 text-light'>Welcome to Shane Cooke's Website</span>
             </div>
-            
-            <footer class='py-3 p-3 text-bg-dark border-top my_footer'>
-                <ul class="nav justify-content-center border-bottom p-3 pb-3 mb-3">
-                    <li class="nav-item"><a href="{% url "home" %}" class="nav-link px-2 text-light">Home</a></li>
-                    <li class="nav-item"><a href="https://www.linkedin.com/in/cooke-shane/" class="nav-link px-2 text-light">LinkedIn</a></li>
-                    <li class="nav-item"><a href="https://github.com/CookeShane" class="nav-link px-2 text-light">Github</a></li>
-                    <li class="nav-item"><a href="https://drive.google.com/file/d/1pBj9sFm-Tu1eqyCWuBfqCUiodAUj1Yxd/view?usp=sharing" 
-                        class="nav-link px-2 text-light">Master's Poster</a></li>
-                </ul>
-                <p class="text-center text-light">
-                    © 2024 Shane Cooke
-                </p>
-            </footer>
+        </nav>
+
+        <!-- Content block used by extending this file -->
+        <div class="container content">
+            {% block main %}     {% endblock main %}
         </div>
+        
+        <footer class='py-3 p-3 text-bg-dark border-top my_footer'>
+            <ul class="nav justify-content-center border-bottom p-3 pb-3 mb-3">
+                <li class="nav-item"><a href="{% url "home" %}" class="nav-link px-2 text-light">Home</a></li>
+                <li class="nav-item"><a href="https://www.linkedin.com/in/cooke-shane/" class="nav-link px-2 text-light">LinkedIn</a></li>
+                <li class="nav-item"><a href="https://github.com/CookeShane" class="nav-link px-2 text-light">Github</a></li>
+                <li class="nav-item"><a href="https://drive.google.com/file/d/1pBj9sFm-Tu1eqyCWuBfqCUiodAUj1Yxd/view?usp=sharing" 
+                    class="nav-link px-2 text-light">Master's Poster</a></li>
+            </ul>
+            <p class="text-center text-light">
+                © 2024 Shane Cooke
+            </p>
+        </footer>
     </body>
 </html>

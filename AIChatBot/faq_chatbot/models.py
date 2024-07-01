@@ -47,7 +47,7 @@ class FAQs(models.Model):
         if closest_match.distance <= 0.55:
             return closest_match
         else:
-            return 'Sorry, I do not know the answer to your question. Please email your question to shanephcooke@gmail.com and we will get back to you as soon as possible.'
+            return "Sorry, I do not know the answer to your question. Please email your question to shanephcooke@gmail.com and we will get back to you as soon as possible."
 
 
     def __str__(self):
