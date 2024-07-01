@@ -1,0 +1,35 @@
+services:
+  db:
+    image: ankane/pgvector
+    container_name: db
+    env_file:
+      - .env
+    environment:
+      - POSTGRES_DB=${POSTGRES_NAME}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    ports:
+      - "5432:5432"
+
+  web:
+    build: .
+    container_name: django-app
+    env_file:
+      - .env
+    volumes:
+      - .:/code
+    ports:
+      - "8000:8000"
+    environment:
+      - POSTGRES_NAME=${POSTGRES_NAME}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_HOST=db
+      - POSTGRES_PORT=5432
+    command: sh -c "
+        python AIChatBot/manage.py makemigrations &&
+        python AIChatBot/manage.py migrate &&
+        python AIChatBot/manage.py populate_db &&
+        python AIChatBot/manage.py runserver 0.0.0.0:8000"
+    depends_on:
+      - db
