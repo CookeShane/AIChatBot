@@ -1,5 +1,6 @@
 from django.core.management.base import BaseCommand
 from django.conf import settings
+from django.db import connection
 from pathlib import Path
 from faq_chatbot.models import FAQs
 from faq_chatbot.nlp import OpenAI_API
@@ -19,6 +20,12 @@ class Command(BaseCommand):
             'funded': 'The Funded Account'
         }
 
+        # Clear the existing FAQs in the database
+        FAQs.objects.all().delete()
+        with connection.cursor() as cursor:
+            cursor.execute("SELECT setval(pg_get_serial_sequence('faqs', 'id'), 1, false)")
+
+
         for category_name, category_dir in categories.items():
             category_path = os.path.join(faqs_dir, category_dir)
 
@@ -37,18 +44,19 @@ class Command(BaseCommand):
                                 'answer': answer,
                                 'embedding': embedding
                             })
-
         
+        # Add the custom message for when no FAQ matches
+        if os.path.exists(faqs_dir) and os.path.isdir(faqs_dir):
+            filepath = os.path.join(faqs_dir, 'custom_message.txt')
+            with open(filepath) as file:
+                custom_message = file.readlines()[0].strip()
+        FAQs.objects.create(question='No Match', answer=custom_message, embedding=[0]*1536)
+        
+        # Add the new FAQs to the database
         for faq_data in data:
-            faq, created = FAQs.objects.get_or_create(
+            FAQs.objects.create(
                 category=faq_data['category'],
                 question=faq_data['question'],
-                defaults={
-                    'answer': faq_data['answer'],
-                    'embedding': faq_data['embedding']
-                }
+                answer=faq_data['answer'],
+                embedding=faq_data['embedding']
             )
-            if not created:
-                faq.answer = faq_data['answer']
-                faq.embedding = faq_data['embedding']
-                faq.save()

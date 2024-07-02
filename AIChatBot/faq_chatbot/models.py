@@ -35,7 +35,7 @@ class FAQs(models.Model):
 
     categories = [('general', 'General Queries'), ('challenge', 'The Challenge'), ('funded', 'The Funded Account')]
 
-    category = models.CharField(max_length=100, choices=categories)
+    category = models.CharField(max_length=100, choices=categories, null=True)
     question = models.TextField()
     answer = models.TextField()
     embedding = VectorField(dimensions=1536)
@@ -47,7 +47,7 @@ class FAQs(models.Model):
         if closest_match.distance <= 0.55:
             return closest_match
         else:
-            return "Sorry, I do not know the answer to your question. Please email your question to shanephcooke@gmail.com and we will get back to you as soon as possible."
+            return cls.objects.get(id='1')
 
 
     def __str__(self):
