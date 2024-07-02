@@ -1,6 +1,6 @@
 # AIChatBot
 
-AIChatBot is a chatbot that utilizes OpenAI's API to create embeddings of user questions and answers them from a list of predefined questions and answers. If there is no appropriate response, a customised message is returned instead.
+AIChatBot is a Python & Django based chatbot that utilises OpenAI's API to create embeddings of user questions and answers them from a list of predefined questions and answers. If there is no appropriate response, a customised message is returned instead. The chatbot is (almost) contained inside a single Django app, and therefore can easily be integrated into any other Django project.
 
 
 ## Table of Contents
@@ -16,11 +16,13 @@ AIChatBot is a chatbot that utilizes OpenAI's API to create embeddings of user q
 
 ## Features
 
+- **Django Application**: This project is Django based, which manages the application logic, user interactions, and API endpoints. Please note, `DEBUG = TRUE` has been left for simplicity.
+- **Chatbot Containment**: The chatbot is contained in a single Django app, allowing for easy integration with other Django projects.
 - **OpenAI Integration**: Uses OpenAI's API for generating embeddings of user questions.
+- **PostgreSQL Database**: Stores the predefined questions, answers, and user interaction data. The database is run through a Docker container. The image used is the `ankane/pgvector` image.
 - **Vector Similarity Search**: Employs pgvector and Ivfflat Indexing for efficient and accurate matching of user questions to predefined answers.
-- **Django Backend**: Manages the application logic, user interactions, and API endpoints.
-- **PostgreSQL Database**: Stores the predefined questions, answers, and user interaction data.
-- **Dockerized Setup**: Ensures a consistent and reproducible environment for development, testing, and deployment.
+- **Dockerized Setup**: Ensures a consistent and reproducible environment for development, testing, and deployment. A Dockerfile is provided to create an image of the Django application, while a docker-compose.yml file is provided for the configuration of the multi-container complete application.
+- **Maintainability**: This project was designed for ease of maintenance and to be easily extenisble. For example, what to add a different API for get embeddings, simply add a new class with the Python code to `faq_chatbot/nlp.py`. Have new questions and answers, add them to the `FAQs` folder.
 
 
 ## Installation Requirements
@@ -75,7 +77,7 @@ The FAQs are sourced from the FunderPro.com website and stored in the `AIChatBot
   - **First Line**: `<the question>`
   - **Subsequent Lines**: `<the answer>`
 
-To modify or add categories, you will need to edit the `AIChatBot/faq_chatbot/management/commands/populate_db.py` file. After making your changes, populate the database by running the following command:
+To modify or add categories, you will need to edit the `AIChatBot/faq_chatbot/management/commands/populate_db.py` file. After making your changes, populate the database by running the command below. Please note, this command clears the database entirely and then repopulates it when its run. It is included in the `Dockerfile` and `docker-compose.yml` by default but can be taken out for quicker container start times.
 ```bash
 python manage.py populate_db
 ```
