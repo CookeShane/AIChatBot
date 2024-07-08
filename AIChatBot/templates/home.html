@@ -2,49 +2,54 @@
 {% load static %}
 
 {% block main %}
-<div class='p-5 mt-5 mb-4 bg-light rounded-5'>
-    <div class='container-fluid py-5s'>
-        <h1 class='display-5 fw-bold'>Welcome to Shane Cooke's Website</h1>
-        <p class='col-md-8 fs-4'>The purpose of this website is to show off the functionality of my AI powered ChatBot.</p>
-    </div>
-</div>
-<div class="row">
-    <div class="col-8">
-        <h1>How it works!</h1>
-        <ul>
-            <li><h5>Step 1: Enter a question into the form input on the right of the page.</h5></li>
-            <li><h5>Step 2: Using OpenAI's API, an embedding of your question is created. 
-                This embedding is then compared to the database of questions, and if it matches one of them, the answer is returned to you. 
-                If there is no match, a custom message with show instead.</h5></li>
-        </ul>
-        <h3>Give it a go yourself!</h3>
-    </div>
-    <div class="col-4 p-5 bg-light rounded-5">
-        {% block chatbot_block %}{% endblock chatbot_block %}
+<div class='container'>
+    <div class='p-5 mt-5 mb-4 bg-light rounded-5'>
+        <div class='container-fluid py-5'>
+            <h1 class='display-5 fw-bold'>Welcome to Shane Cooke's Website</h1>
+            <p class='col-md-8 fs-4'>The purpose of this website is to show off the functionality of my AI powered ChatBot.</p>
+        </div>
     </div>
     
+    <h1 class='my-5'>How it works!</h1>
+        <h5><strong>Step 1:</strong> Open the chatbot with the comment/chat button in the bottom right of the webpage.</h5>
+        <h5><strong>Step 2:</strong> Type your question into the input field (Where it says 'Enter your question....').</h5>
+        <h5><strong>Step 3:</strong> Hit 'Enter' on your keyboard or click the 'Send' button.</h5>
+        <h5><strong>Step 4:</strong> Using OpenAI's API, an embedding of your question is created. 
+            This embedding is then compared to the database of questions, and if it matches one of them, the answer is returned to you. 
+            If there is no match, a custom message with show instead.</h5>
+    </ul>
+    <h3 class='mt-5'>Some of the questions to ask:</h3>
+    <ul>
+        <li><h5>Do you have a refund policy?</h5></li>
+        <li><h5>What leverage is available?</h5></li>
+        <li><h5>Do I trade with real funds?</h5></li>
+    </ul>
+    <h3 class='mt-5'>Give it a go yourself!</h3> 
+    
+    <br><br><br><br>
+
+    <div class="container mb-5 mt-5">
+        <div class="row text-center">
+            <div class="col-md-4">
+                <i class="bi bi-lightning-charge-fill display-4 text-primary"></i>
+                <h3>Fast Responses</h3>
+                <p>Get answers to your questions in seconds.</p>
+            </div>
+            <div class="col-md-4">
+                <i class="bi bi-shield-fill-check display-4 text-success"></i>
+                <h3>Reliable</h3>
+                <p>Accurate and dependable information.</p>
+            </div>
+            <div class="col-md-4">
+                <i class="bi bi-gear-fill display-4 text-warning"></i>
+                <h3>Customizable</h3>
+                <p>Tailor the chatbot to your needs.</p>
+            </div>
+        </div>
     </div>
 </div>
-<div class="container mb-5 mt-5">
-    <div class="row text-center">
-        <div class="col-md-4">
-            <i class="bi bi-lightning-charge-fill display-4 text-primary"></i>
-            <h3>Fast Responses</h3>
-            <p>Get answers to your questions in seconds.</p>
-        </div>
-        <div class="col-md-4">
-            <i class="bi bi-shield-fill-check display-4 text-success"></i>
-            <h3>Reliable</h3>
-            <p>Accurate and dependable information.</p>
-        </div>
-        <div class="col-md-4">
-            <i class="bi bi-gear-fill display-4 text-warning"></i>
-            <h3>Customizable</h3>
-            <p>Tailor the chatbot to your needs.</p>
-        </div>
-    </div>
-</div>
+
+{% include "faq_chatbot/chatbot.html" %}
 
 
 {% endblock main %}
-

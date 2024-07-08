@@ -1,26 +1,26 @@
-{% extends "home.html" %}
-{% load custom_filters %}
+{% load static %}
+<link rel="stylesheet" href="{% static "faq_chatbot/CSS/chatbot.css" %}">
 
-{% block chatbot_block %}
-
-    <div class="container">
-        <h1 class="">FAQ Chatbot</h1>
-        <form method="post" class="mt-3">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit" class="btn btn-primary">Ask</button>
-        </form>
-
-        {% if user_question %}
-            <div class="mt-4">
-                <h4>Your Question: {{ user_question }}</h4>
-                {% if most_similar %}
-                    <p>{{ most_similar.answer|linebreaks|convert_hyperlinks }}</p>
-                {% else %}
-                    <p>{{ custom_message|linebreaks|urlize }}</p>
-                {% endif %}
-            </div>
-        {% endif %}
+    <!-- The Chatbox Display -->
+    <div class="chatbox-display visible overflow-hidden bg-white rounded-4 shadow-lg m-5">
+        <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+        <div class='chatbox-header bg-primary text-center p-3 text-white'>
+            <h4 class='fw-bolder'>Virtual Assistant</h4>
+        </div>
+        <ul class='chatbox-body overflow-y-auto pt-3 px-2 m-2'>
+            <li class='bot-messages'>
+                <p class=''>Hi there, how can I help you?</p>
+            </li>
+        </ul>
+        <div class='chatbox-footer d-flex flex-row border-2 border-top border-secondary p-3'>
+            <input type="text" class="border-0 p-2 d-inline-flex w-100" placeholder="Enter your question....">
+            <button class='send-message d-inline-flex btn btn-outline-primary'>Send</button>
+        </div>
     </div>
 
-{% endblock chatbot_block %}
+    <!-- The button to open display box -->
+    <div class="open-chatbox-button mx-5 my-4 bg-light rounded-5 p-2">
+        <input type="image" src='{% static "Images/comment.png" %}' width='40' height='40'>
+    </div>
+
+<script type="text/javascript" defer src="{% static "faq_chatbot/JS/chatbot.js" %}"></script>
