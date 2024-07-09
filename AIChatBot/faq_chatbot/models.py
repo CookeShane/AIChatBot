@@ -42,6 +42,16 @@ class FAQs(models.Model):
 
     @classmethod
     def search_db_by_vector(cls, query_vector):
+        """
+        Searches the database for the closest matching FAQ based on the provided query vector.
+
+        Args:
+            query_vector (list): The vector representation of the query.
+
+        Returns:
+            FAQs: The closest matching FAQ if the distance is less than or equal to 0.55.
+            str: A message indicating no match was found if the distance is greater than 0.55.
+        """
         closest_match = cls.objects.annotate(distance=L2Distance('embedding', query_vector)).order_by('distance').first()
 
         if closest_match.distance <= 0.55:
